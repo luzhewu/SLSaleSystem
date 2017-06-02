@@ -23,6 +23,12 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+       <!-- java ee包 -->  
+        <dependency>  
+            <groupId>javax</groupId>  
+            <artifactId>javaee-api</artifactId>  
+            <version>7.0</version>  
+        </dependency>  
     <!-- spring框架包 start -->  
         <dependency>  
             <groupId>org.springframework</groupId>  

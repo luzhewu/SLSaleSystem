@@ -19,8 +19,8 @@
   
   <body>
     <h2>注册成功页面</h2>
-    userCode:${userCode}<br/>
-    userName:${userName}<br/>
-    userPassword:${userPassword}<br/>
+    userCode:${user.userCode}<br/>
+    userName:${user.userName}<br/>
+    userPassword:${user.userPassword}<br/>
   </body>
 </html>
