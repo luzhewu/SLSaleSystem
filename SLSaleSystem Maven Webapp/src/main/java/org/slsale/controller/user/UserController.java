@@ -32,6 +32,7 @@ public class UserController {
 		logger.debug("doLogin--------------->" + user.getUserCode());
 		try {
 			user = userService.login(user);
+			logger.debug("登录成功-----》userName:" + user.getUserName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
