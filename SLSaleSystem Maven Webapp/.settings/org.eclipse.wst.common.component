@@ -3,6 +3,7 @@
     <wb-module deploy-name="SLSaleSystem Maven Webapp">
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <property name="context-root" value="/SLSaleSystem"/>
         <property name="java-output-path" value="/SLSaleSystem Maven Webapp/src/main/webapp/WEB-INF/classes"/>
     </wb-module>
