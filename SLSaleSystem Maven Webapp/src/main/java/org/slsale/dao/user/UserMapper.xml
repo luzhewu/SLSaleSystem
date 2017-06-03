@@ -4,14 +4,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.slsale.dao.user.UserMapper">
 	<!-- 用户登录 -->
-	<select id="login" parameterType="user" resultType="user">
-		select id,userCode,userName,userPassword from user 
+	<select id="getLoginUser" parameterType="user" resultType="user">
+		select * from as_user 
 			where userCode = #{userCode} and userPassword = #{userPassword}
 	</select>
 	
-	<!-- 注册 -->
-	<insert id="register" parameterType="user">
-		insert into user(userCode,userName,userPassword)
-			values(#{userCode},#{userName},#{userPassword})
-	</insert>
+	<!-- 判断用户账号是否存在 -->
+	<select id="userCodeIsExist" parameterType="user" resultType="Integer">
+		select count(1) from as_user 
+			<trim prefix="where" prefixOverrides="and | or">
+				<if test="userCode != null">
+					and userCode = #{userCode}
+				</if>
+			</trim>
+	</select>
+	
+	<update id="modifyUser" parameterType="user">
+		update as_user
+			<set>
+				<if test="userCode != null">userCode=#{userCode},</if>
+				<if test="userName != null">userName=#{userName},</if>
+				<if test="userPassword != null">userPassword=#{userPassword},</if>
+				<if test="creationTime != null">creationTime=#{creationTime},</if>
+				<if test="lastLoginTime != null">lastLoginTime=#{lastLoginTime},</if>
+				<if test="createdBy != null">createdBy=#{createdBy},</if>
+				<if test="lastUpdateTime != null">lastUpdateTime=#{lastUpdateTime},</if>
+				<if test="isStart != null">isStart=#{isStart},</if>
+				<if test="roleId != null">roleId=#{roleId},</if>
+			</set>
+			where id = #{id}
+	</update>
 </mapper>
