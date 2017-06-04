@@ -10,7 +10,7 @@
 	<meta name="author" content="Muhammad Usman">
 	
 	<!-- The styles -->
-	<link  href="/statics/css/bootstrap-cerulean.css" rel="stylesheet">
+	<link "bs-css"  href="/statics/css/bootstrap-cerulean.css" rel="stylesheet">
 	<style type="text/css">
 	  body {
 		padding-bottom: 40px;
@@ -57,12 +57,12 @@
 						<div class="form-horizontal">
 						<fieldset>
 							<div class="input-prepend" title="登录账号" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="userCode" id="userCode" type="text" value="" />
+								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="loginCode" id="loginCode" type="text" value="" />
 							</div>
 							<div class="clearfix"></div>
 
 							<div class="input-prepend" title="登陆密码" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="userPassword" id="userPassword" type="password" value="" />
+								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password" value="" />
 							</div>
 							<div class="clearfix"></div>
 

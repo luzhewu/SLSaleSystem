@@ -61,7 +61,7 @@
 	<!-- txAdvice:需要定义事物管理器，进行事务处理	 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
-			<tx:method name="hl*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="lzw*" propagation="REQUIRED" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice> 
 	

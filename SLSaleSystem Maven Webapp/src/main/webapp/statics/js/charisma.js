@@ -1,4 +1,46 @@
 $(document).ready(function(){
+	/*menuList start*/
+	var result = "";
+	var json = eval('('+tt+')');
+	for(var i=0;i<json.length;i++){
+		/* <li class="nav-header hidden-tablet" onclick="$('#test1').toggle(500);">后台管理</li>
+		<li><ul class="nav nav-tabs nav-stacked" id="test1">
+				<li><a class="ajax-link" href="#"><i class="icon-home"></i><span class="hidden-tablet">用户管理</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">角色管理</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-edit"></i><span class="hidden-tablet"> 权限管理</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-list-alt"></i><span class="hidden-tablet">商品管理</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-font"></i><span class="hidden-tablet">商品套餐管理</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-picture"></i><span class="hidden-tablet">基础信息</span></a></li>
+				<li><a class="ajax-link" href="#"><i class="icon-picture"></i><span class="hidden-tablet">数据字典</span></a></li>
+			</ul></li> */
+		result = result + '<li class="nav-header hidden-tablet" onclick="$(\'#test'+i+'\').toggle(500);" style="cursor:pointer">'+json[i].mainMenu.functionName+'</li>';
+		result = result +'<li><ul class="nav nav-tabs nav-stacked" id="test'+i+'">';
+		for(var j=0;j<json[i].subMenu.length;j++){
+			var pic;
+			switch(j){
+			case 0:
+				pic = "icon-home";break;
+			case 1:
+				pic = "icon-eye-open";break;
+			case 2:
+				pic = "icon-edit";break;
+			case 3:
+				pic = "icon-list-alt";break;
+			case 4:
+				pic = "icon-font";break;
+			case 5:
+				pic = "icon-picture";break;
+			default:
+				pic = "icon-picture";break;
+			}
+			result = result + '<li><a class="ajax-link" href="'+json[i].subMenu[j].funcUrl+'"><i class="'+pic+'"></i><span class="hidden-tablet">'+json[i].subMenu[j].functionName+'</span></a></li>';
+		}
+		result = result + '</ul></li>';
+	}
+	$("#menus").append(result);
+	/*menuList end*/
+	
+	
 	//themes, change CSS with JS
 	//default theme(CSS) is cerulean, change it if needed
 	var current_theme = $.cookie('current_theme')==null ? 'cerulean' :$.cookie('current_theme');
@@ -18,7 +60,7 @@ $(document).ready(function(){
 	
 	function switch_theme(theme_name)
 	{
-		$('#bs-css').attr('href','css/bootstrap-'+theme_name+'.css');
+		$('#bs-css').attr('href','/statics/css/bootstrap-'+theme_name+'.css');
 	}
 	
 	//ajax menu checkbox

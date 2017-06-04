@@ -5,32 +5,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.slsale.dao.user.UserMapper">
 	<!-- 用户登录 -->
 	<select id="getLoginUser" parameterType="user" resultType="user">
-		select * from as_user 
-			where userCode = #{userCode} and userPassword = #{userPassword}
+		select * from au_user 
+			where loginCode = #{loginCode} and password = #{password}
 	</select>
 	
 	<!-- 判断用户账号是否存在 -->
-	<select id="userCodeIsExist" parameterType="user" resultType="Integer">
-		select count(1) from as_user 
+	<select id="loginCodeIsExist" parameterType="user" resultType="Integer">
+		select count(1) from au_user 
 			<trim prefix="where" prefixOverrides="and | or">
-				<if test="userCode != null">
-					and userCode = #{userCode}
+				<if test="loginCode != null">
+					and loginCode = #{loginCode}
 				</if>
 			</trim>
 	</select>
 	
 	<update id="modifyUser" parameterType="user">
-		update as_user
+		update au_user
 			<set>
-				<if test="userCode != null">userCode=#{userCode},</if>
+				<if test="loginCode != null">loginCode=#{loginCode},</if>
 				<if test="userName != null">userName=#{userName},</if>
-				<if test="userPassword != null">userPassword=#{userPassword},</if>
-				<if test="creationTime != null">creationTime=#{creationTime},</if>
-				<if test="lastLoginTime != null">lastLoginTime=#{lastLoginTime},</if>
-				<if test="createdBy != null">createdBy=#{createdBy},</if>
-				<if test="lastUpdateTime != null">lastUpdateTime=#{lastUpdateTime},</if>
-				<if test="isStart != null">isStart=#{isStart},</if>
+				<if test="password != null">password=#{password},</if>
+				<if test="password2 != null">password2=#{password2},</if>
+				<if test="sex != null">sex=#{sex},</if>
+				<if test="birthday != null">birthday=#{birthday},</if>
+				<if test="cardType != null">cardType=#{cardType},</if>
+				<if test="cardTypeName != null">cardTypeName=#{cardTypeName},</if>
+				<if test="idCard != null">idCard=#{idCard},</if>
+				<if test="country != null">country=#{country},</if>
+				<if test="mobile != null">mobile=#{mobile},</if>
+				<if test="email != null">email=#{email},</if>
+				<if test="userAddress != null">userAddress=#{userAddress},</if>
+				<if test="postCode != null">postCode=#{postCode},</if>
+				<if test="createTime != null">createTime=#{createTime},</if>
+				<if test="referId != null">referId=#{referId},</if>
+				<if test="referCode != null">referCode=#{referCode},</if>
 				<if test="roleId != null">roleId=#{roleId},</if>
+				<if test="roleName != null">roleName=#{roleName},</if>
+				<if test="userType != null">userType=#{userType},</if>
+				<if test="userTypeName != null">userTypeName=#{userTypeName},</if>
+				<if test="isStart != null">isStart=#{isStart},</if>
+				<if test="lastUp != null">lastUp=#{lastUp},</if>
+				<if test="lastLoginTime != null">lastLoginTime=#{lastLoginTime},</if>
+				<if test="bankAccount != null">bankAccount=#{bankAccount},</if>
+				<if test="bankName != null">bankName=#{bankName},</if>
+				<if test="accountHolder != null">accountHolder=#{accountHolder},</if>
+				<if test="idCardPicPath != null">idCardPicPath=#{idCardPicPath},</if>
+				<if test="bankPicPath != null">bankPicPath=#{bankPicPath}, </if>
 			</set>
 			where id = #{id}
 	</update>

@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int userCodeIsExist(User user) throws Exception {
-		return userMapper.userCodeIsExist(user);
+	public int loginCodeIsExist(User user) throws Exception {
+		return userMapper.loginCodeIsExist(user);
 	}
 
 	@Override

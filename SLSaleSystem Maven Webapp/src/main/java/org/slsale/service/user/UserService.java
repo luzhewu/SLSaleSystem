@@ -12,12 +12,12 @@ public interface UserService {
 	User getLoginUser(User user) throws Exception;
 
 	/**
-	 * 判断userCode是否存在
+	 * 判断loginCode是否存在
 	 * @param user
 	 * @return 大于0表示存在，等于0表示不存在
 	 * @throws Exception
 	 */
-	int userCodeIsExist(User user) throws Exception;
+	int loginCodeIsExist(User user) throws Exception;
 
 	/**
 	 * 修改用户信息

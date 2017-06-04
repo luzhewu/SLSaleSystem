@@ -1,15 +1,15 @@
 
 	$("#loginBtn").click(function(){
 	var user = new Object();
-	user.userCode = $.trim($("#userCode").val());
-	user.userPassword = $.trim($("#userPassword").val());
+	user.loginCode = $.trim($("#loginCode").val());
+	user.password = $.trim($("#password").val());
 	user.isStart=1;
 	
-	if(user.userCode == "" || user.userCode == null){
-		$("#userCode").focus;
+	if(user.loginCode == "" || user.loginCode == null){
+		$("#loginCode").focus;
 		$("#formtip").html("登录名不能为空").css("color","red");
-	}else if(user.userPassword == "" || user.userPassword == null){
-		$("#userPassword").focus;
+	}else if(user.password == "" || user.password == null){
+		$("#password").focus;
 		$("#formtip").html("密码不能为空").css("color","red");
 	}else{
 		$.ajax({
@@ -26,11 +26,11 @@
 					window.location.href="/main.html";
 				}else if(data == "failed"){
 					$("#formtip").html("登录失败，请重新登录").css("color","red");
-					$("#userCode").val('');
-					$("#userPassword").val('');
-				}else if(data == "nousercode"){
+					$("#loginCode").val('');
+					$("#password").val('');
+				}else if(data == "nologincode"){
 					$("#formtip").html("登录账号不存在，请核对后登录").css("color","red");
-				}else if(data == "nouserpassword"){
+				}else if(data == "nopassword"){
 					$("#formtip").html("登录密码错误，请核对后登录").css("color","red");
 				}else if("nodata" == data){
 					$("#formtip").html("对不起，没有任何数据需要处理，请重新输入").css("color","red");
