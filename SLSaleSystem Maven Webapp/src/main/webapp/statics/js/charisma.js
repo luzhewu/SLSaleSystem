@@ -1,18 +1,69 @@
 $(document).ready(function(){
+	/*modifypassword start*/
+	$("#modifysavePassword").click(function(){
+		var tip = $("#modifypwdtip");
+		tip.html("");
+		var oldpwd = $("#oldpassword").val();
+		var newpwd = $("#newpassword").val();
+		var againpwd = $("#againpassword").val();
+		if("" == oldpwd){
+			tip.css("color","red").html("对不起，请输入原密码。");
+			$("#oldpassword").focus;
+		}else if("" == newpwd){
+			tip.css("color","red").html("对不起，请输入新密码。");
+			$("#newpassword").focus;
+		}else if(newpwd.length < 6){
+			tip.css("color","red").html("对不起，新密码长度不能小于6位。");
+			$("#newpassword").focus;
+		}else if("" == againpwd){
+			tip.css("color","red").html("对不起，请输入确认新密码。");
+			$("#againpassword").focus;
+		}else if(newpwd != againpwd){
+			tip.css("color","red").html("对不起，两次输入的密码不一致，请重新输入确认密码。");
+			$("#againpassword").focus;
+		}else{
+			//userJson
+			user = new Object();
+			user.password = oldpwd;
+			user.password2 = newpwd;
+			$.ajax({
+				url:"/backend/modifyPwd.html",
+				type:"POST",
+				data:{userJson:JSON.stringify(user)},
+				dataType:"html",
+				timeout:1000,
+				error:function(){
+					alert("修改密码失败！请重试。")
+				},
+				success:function(data){
+					if(data != "" && data == "success"){
+						tip.css("color","green").html("修改密码成功，请记住新密码。");
+					}else if(data == "failed"){
+						tip.css("color","red").html("修改密码失败，请重试。");
+					}else if(data == "oldpwdwrong"){
+						tip.css("color","red").html("原密码不正确，请重试。");
+					}else if(data == "nodata"){
+						tip.css("color","red").html("没有任何数据需要处理，请重试。");
+					}
+				}
+			});
+		}
+	});
+	
+	$(".modifypwd").click(function(e){
+		$("#oldpassword").val("");
+		$("#newpassword").val("");
+		$("#againpassword").val("");
+		$("#modifypwdtip").html("");
+		e.preventDefault();
+		$("#myModal").modal("show");
+	});
+	/*modifypassword end*/
+	
 	/*menuList start*/
 	var result = "";
 	var json = eval('('+tt+')');
 	for(var i=0;i<json.length;i++){
-		/* <li class="nav-header hidden-tablet" onclick="$('#test1').toggle(500);">后台管理</li>
-		<li><ul class="nav nav-tabs nav-stacked" id="test1">
-				<li><a class="ajax-link" href="#"><i class="icon-home"></i><span class="hidden-tablet">用户管理</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-eye-open"></i><span class="hidden-tablet">角色管理</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-edit"></i><span class="hidden-tablet"> 权限管理</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-list-alt"></i><span class="hidden-tablet">商品管理</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-font"></i><span class="hidden-tablet">商品套餐管理</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-picture"></i><span class="hidden-tablet">基础信息</span></a></li>
-				<li><a class="ajax-link" href="#"><i class="icon-picture"></i><span class="hidden-tablet">数据字典</span></a></li>
-			</ul></li> */
 		result = result + '<li class="nav-header hidden-tablet" onclick="$(\'#test'+i+'\').toggle(500);" style="cursor:pointer">'+json[i].mainMenu.functionName+'</li>';
 		result = result +'<li><ul class="nav nav-tabs nav-stacked" id="test'+i+'">';
 		for(var j=0;j<json[i].subMenu.length;j++){

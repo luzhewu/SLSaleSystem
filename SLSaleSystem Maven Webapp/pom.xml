@@ -196,7 +196,12 @@
         </dependency>  
         <!-- AL相关添加 -->  
         
-        
+        <!-- redis相关依赖 -->
+        <dependency>
+		    <groupId>redis.clients</groupId>
+		    <artifactId>jedis</artifactId>
+	    <version>2.6.1</version>
+</dependency>
   </dependencies>
   
   <build>

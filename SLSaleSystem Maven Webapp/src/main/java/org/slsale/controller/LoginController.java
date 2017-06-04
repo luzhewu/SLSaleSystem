@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.slsale.common.Constants;
+import org.slsale.common.RedisAPI;
 import org.slsale.pojo.Authority;
 import org.slsale.pojo.Function;
 import org.slsale.pojo.Menu;
@@ -33,6 +34,8 @@ public class LoginController extends BaseController {
 	private UserService userService;
 	@Resource
 	private FunctionService functionService;
+	@Resource
+	private RedisAPI redisAPI;
 
 	@RequestMapping("/main.html")
 	public ModelAndView main(HttpSession session) {
@@ -41,31 +44,32 @@ public class LoginController extends BaseController {
 		if (user != null) {
 			Map<String, Object> model = new HashMap<String, Object>();
 			model.put("user", user);
-			// 根据当前用户获取菜单列表mList
-			mList = getFunctionByCurrentUser(user.getRoleId());
-			logger.debug("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			for (Menu menu : mList) {
-				logger.debug("menu=======functionName======>"
-						+ menu.getMainMenu().getFunctionName());
-				List<Function> subMenu = menu.getSubMenu();
-				for (Function function : subMenu) {
-					logger.debug("function=======functionName======>"
-							+ function.getFunctionName());
-				}
-				logger.debug("---------------------------------------------------");
-			}
-			logger.debug("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-			// json
-			if (mList != null) {
-				/*JSONArray fromObject = JSONArray.fromObject(mList);
-				String jsonString = fromObject.toString();*/
 
-				String jsonString = JSONArray.toJSONString(mList);
-				logger.debug("jsonString------------->" + jsonString);
-				model.put("mList", jsonString);
-				session.setAttribute(Constants.SESSION_BASE_MODEL, model);
-				return new ModelAndView("main", model);
+			/*redis里没有数据
+			 * key:menuList+roleId
+			 * value:mList
+			  */
+			if (!redisAPI.exist("menuList" + user.getRoleId())) {// redis中没数据
+				// 根据当前用户获取菜单列表mList
+				mList = getFunctionByCurrentUser(user.getRoleId());
+				// json
+				if (mList != null) {
+					String jsonString = JSONArray.toJSONString(mList);
+					model.put("mList", jsonString);
+					redisAPI.set("menuList" + user.getRoleId(), jsonString);
+				}
+			} else {// redis里有数据，直接从redis里取数据
+				String redisMenuList = redisAPI.get("menuList"
+						+ user.getRoleId());
+				if (null != redisMenuList && !"".equals(redisMenuList)) {
+					model.put("mList", redisMenuList);
+				} else {
+					return new ModelAndView("redirect:/");
+				}
 			}
+			session.setAttribute(Constants.SESSION_BASE_MODEL, model);
+			return new ModelAndView("main", model);
+
 		}
 		return new ModelAndView("redirect:/");
 	}
@@ -129,5 +133,18 @@ public class LoginController extends BaseController {
 				return "failed";
 			}
 		}
+	}
+
+	/**
+	 * 注销用户
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/logout.html")
+	public String logout(HttpSession session) {
+		session.removeAttribute(Constants.SESSION_USER);
+		session.invalidate();
+		this.setCurrentUser(null);
+		return "index";
 	}
 }
