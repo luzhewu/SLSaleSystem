@@ -83,6 +83,11 @@
 	<!-- application script for Charisma demo -->
 	<script src="/statics/js/charisma.js"></script>
 	
+	<!-- json2 /ajafileupload /WdatePicker-->
+	<script src="/statics/js/json2.js"></script>
+	<script src="/statics/js/ajaxfileupload.js"></script>
+	<script src="/statics/medire/WdatePicker.js"></script>
+	<!-- json2 /ajafileupload /WdatePicker  -->
 		
 </body>
 </html>

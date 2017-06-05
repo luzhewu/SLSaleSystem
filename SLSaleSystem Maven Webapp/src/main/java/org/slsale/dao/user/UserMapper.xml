@@ -54,4 +54,61 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</set>
 			where id = #{id}
 	</update>
+	
+	<!-- count -->
+	<select id="count" parameterType="user" resultType="Integer">
+		select count(1) from au_user
+			<trim prefix="where" prefixOverrides="and | or">
+				<if test="loginCode !=null">
+					and loginCode like #{loginCode} 
+				</if>
+				<if test="userName !=null">
+					and userName like #{userName}
+				</if>
+				<if test="referCode !=null">
+					and referCode like #{referCode}
+				</if>
+				<if test="roleId !=null">
+					and roleId = #{roleId} 
+				</if>
+				<if test="isStart !=null">
+					and isStart = #{isStart} 
+				</if>
+				<if test="referId !=null">
+					and referId = #{referId} 
+				</if>
+				<if test="userType !=null">
+					and userType = #{userType} 
+				</if>
+			</trim>
+	</select>
+	
+	<!-- getUserList -->
+	<select id="getUserList" parameterType="user" resultType="user">
+		select * from au_user
+			<trim prefix="where" prefixOverrides="and | or">
+				<if test="loginCode !=null">
+					and loginCode like #{loginCode} 
+				</if>
+				<if test="userName !=null">
+					and userName like #{userName}
+				</if>
+				<if test="referCode !=null">
+					and referCode like #{referCode}
+				</if>
+				<if test="roleId !=null">
+					and roleId = #{roleId} 
+				</if>
+				<if test="isStart !=null">
+					and isStart = #{isStart} 
+				</if>
+				<if test="referId !=null">
+					and referId = #{referId} 
+				</if>
+				<if test="userType !=null">
+					and userType = #{userType} 
+				</if>
+			</trim>
+			order by createTime limit #{starNum},#{pageSize}
+	</select>
 </mapper>

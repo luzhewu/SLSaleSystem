@@ -23,12 +23,6 @@ public class Menu {
 		this.subMenu = subMenu;
 	}
 
-	public Menu(Function mainMenu, List<Function> subMenu) {
-		super();
-		this.mainMenu = mainMenu;
-		this.subMenu = subMenu;
-	}
-
 	public Menu() {
 		super();
 	}

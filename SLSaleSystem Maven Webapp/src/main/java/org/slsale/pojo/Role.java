@@ -8,17 +8,7 @@ public class Role extends Base {
 	private String roleName; // 角色名称
 	private Date createDate; // 创建日期
 	private Integer isStart; // 是否启用（0、未启用1、启用）
-	private Date createdBy; // 创建者
-
-	public Role(Integer id, String roleCode, String roleName, Date createDate,
-			Integer isStart, Date createdBy) {
-		super(id);
-		this.roleCode = roleCode;
-		this.roleName = roleName;
-		this.createDate = createDate;
-		this.isStart = isStart;
-		this.createdBy = createdBy;
-	}
+	private String createdBy; // 创建者
 
 	public Role() {
 	}
@@ -55,11 +45,11 @@ public class Role extends Base {
 		this.isStart = isStart;
 	}
 
-	public Date getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(Date createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 

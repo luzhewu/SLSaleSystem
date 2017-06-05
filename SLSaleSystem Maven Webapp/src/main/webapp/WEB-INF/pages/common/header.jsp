@@ -47,6 +47,19 @@
 	<link href='/statics/css/opa-icons.css' rel='stylesheet'>
 	<link href='/statics/css/uploadify.css' rel='stylesheet'>
 
+
+	<!-- localcss   start -->
+	<link href='/statics/localcss/addgoodspack.css' rel='stylesheet'>
+	<link href='/statics/localcss/affiche.css' rel='stylesheet'>
+	<link href='/statics/localcss/authoritymanage.css' rel='stylesheet'>
+	<link href='/statics/localcss/dicmanage.css' rel='stylesheet'>
+	<link href='/statics/localcss/information.css' rel='stylesheet'>
+	<link href='/statics/localcss/messagelist.css' rel='stylesheet'>
+	<link href='/statics/localcss/mymessage.css' rel='stylesheet'>
+	<link href='/statics/localcss/rolelist.css' rel='stylesheet'>
+	<link href='/statics/localcss/userlist.css' rel='stylesheet'>
+	<!-- localcss   end -->
+
 	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

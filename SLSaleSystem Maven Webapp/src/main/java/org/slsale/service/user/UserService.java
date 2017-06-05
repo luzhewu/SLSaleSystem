@@ -1,5 +1,7 @@
 package org.slsale.service.user;
 
+import java.util.List;
+
 import org.slsale.pojo.User;
 
 public interface UserService {
@@ -26,4 +28,19 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	int modifyUser(User user) throws Exception;
+
+	/**
+	 * 获取总记录数
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int count(User user) throws Exception;
+
+	/**
+	 * 获取分页用户列表
+	 * @param user
+	 * @return
+	 */
+	List<User> getUserList(User user) throws Exception;
 }

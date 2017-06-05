@@ -14,17 +14,6 @@ public class Function extends Base {
 	public Function() {
 	}
 
-	public Function(Integer id, String functionCode, String functionName,
-			String funcUrl, Integer parentId, Date creationTime, Integer roleId) {
-		super(id);
-		this.functionCode = functionCode;
-		this.functionName = functionName;
-		this.funcUrl = funcUrl;
-		this.parentId = parentId;
-		this.creationTime = creationTime;
-		this.roleId = roleId;
-	}
-
 	public Integer getRoleId() {
 		return roleId;
 	}

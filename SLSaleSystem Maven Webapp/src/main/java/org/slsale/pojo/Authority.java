@@ -13,16 +13,6 @@ public class Authority extends Base {
 	public Authority() {
 	}
 
-	public Authority(Integer id, Integer roleId, Integer functionId,
-			Integer userTypeId, Date creationTime, String createdBy) {
-		super(id);
-		this.roleId = roleId;
-		this.functionId = functionId;
-		this.userTypeId = userTypeId;
-		this.creationTime = creationTime;
-		this.createdBy = createdBy;
-	}
-
 	public Integer getRoleId() {
 		return roleId;
 	}

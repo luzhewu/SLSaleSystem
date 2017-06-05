@@ -1,5 +1,7 @@
 package org.slsale.service.user;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slsale.dao.user.UserMapper;
@@ -24,6 +26,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int modifyUser(User user) throws Exception {
 		return userMapper.modifyUser(user);
+	}
+
+	@Override
+	public int count(User user) throws Exception {
+		return userMapper.count(user);
+	}
+
+	@Override
+	public List<User> getUserList(User user) throws Exception {
+		return userMapper.getUserList(user);
 	}
 
 }

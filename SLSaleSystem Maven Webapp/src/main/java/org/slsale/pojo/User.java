@@ -37,47 +37,6 @@ public class User extends Base {
 	public User() {
 	}
 
-	public User(Integer id, String loginCode, String password,
-			String password2, String userName, String sex, Date birthday,
-			String cardType, String cardTypeName, String idCard,
-			String country, String mobile, String email, String userAddress,
-			String postCode, Date createTime, Integer referId,
-			String referCode, Integer roleId, String roleName, String userType,
-			String userTypeName, Integer isStart, Date lastUp,
-			Date lastLoginTime, String bankAccount, String bankName,
-			String accountHolder, String idCardPicPath, String bankPicPath) {
-		super(id);
-		this.loginCode = loginCode;
-		this.password = password;
-		this.password2 = password2;
-		this.userName = userName;
-		this.sex = sex;
-		this.birthday = birthday;
-		this.cardType = cardType;
-		this.cardTypeName = cardTypeName;
-		this.idCard = idCard;
-		this.country = country;
-		this.mobile = mobile;
-		this.email = email;
-		this.userAddress = userAddress;
-		this.postCode = postCode;
-		this.createTime = createTime;
-		this.referId = referId;
-		this.referCode = referCode;
-		this.roleId = roleId;
-		this.roleName = roleName;
-		this.userType = userType;
-		this.userTypeName = userTypeName;
-		this.isStart = isStart;
-		this.lastUp = lastUp;
-		this.lastLoginTime = lastLoginTime;
-		this.bankAccount = bankAccount;
-		this.bankName = bankName;
-		this.accountHolder = accountHolder;
-		this.idCardPicPath = idCardPicPath;
-		this.bankPicPath = bankPicPath;
-	}
-
 	public String getLoginCode() {
 		return loginCode;
 	}
