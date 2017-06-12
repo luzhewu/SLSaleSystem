@@ -38,4 +38,9 @@ public class UserServiceImpl implements UserService {
 		return userMapper.getUserList(user);
 	}
 
+	@Override
+	public int addUser(User user) throws Exception {
+		return userMapper.addUser(user);
+	}
+
 }

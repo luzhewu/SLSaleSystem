@@ -15,7 +15,7 @@
 		http://twitter.com/halalit_usman
 	-->
 	<meta charset="utf-8">
-	<title>Free HTML5 Bootstrap Admin Template</title>
+	<title>SL会员商城</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
 	<meta name="author" content="Muhammad Usman">
@@ -67,6 +67,10 @@
 
 	<!-- The fav icon -->
 	<link rel="shortcut icon" href="/statics/img/favicon.ico">
+	
+	<!-- jQuery -->
+	<script src="/statics/js/jquery-1.7.2.min.js"></script>
+	
 	<script type="text/javascript">
 		var tt='${mList}';
 	</script>	
@@ -135,3 +139,25 @@
 <div class="container-fluid">
 		<div class="row-fluid">		
 		
+			<!-- left menu starts -->
+			<div class="span2 main-menu-span">
+				<div class="well nav-collapse sidebar-nav">
+					<ul class="nav nav-tabs nav-stacked main-menu" id="menus">
+					<!-- 
+					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
+				 	-->
+					</ul>
+
+
+				</div><!--/.well -->
+			</div><!--/span-->
+			<!-- left menu ends -->
+			
+			<noscript>
+				<div class="alert alert-block span10">
+					<h4 class="alert-heading">Warning!</h4>
+					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
+				</div>
+			</noscript>
+			
+			<div id="content" class="span10">	

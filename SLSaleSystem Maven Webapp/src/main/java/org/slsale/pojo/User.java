@@ -26,7 +26,7 @@ public class User extends Base {
 	private String userType; // 用户类型id
 	private String userTypeName; // 用户类型名称
 	private Integer isStart; // 是否启用（1、启用2、未启用）
-	private Date lastUp; // 最新更新时间
+	private Date lastUpdateTime; // 最新更新时间
 	private Date lastLoginTime; // 最后登录时间
 	private String bankAccount; // 开户卡号
 	private String bankName; // 开户行
@@ -47,6 +47,14 @@ public class User extends Base {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public Date getLastUpdateTime() {
+		return lastUpdateTime;
+	}
+
+	public void setLastUpdateTime(Date lastUpdateTime) {
+		this.lastUpdateTime = lastUpdateTime;
 	}
 
 	public void setPassword(String password) {
@@ -211,14 +219,6 @@ public class User extends Base {
 
 	public void setIsStart(Integer isStart) {
 		this.isStart = isStart;
-	}
-
-	public Date getLastUp() {
-		return lastUp;
-	}
-
-	public void setLastUp(Date lastUp) {
-		this.lastUp = lastUp;
 	}
 
 	public Date getLastLoginTime() {

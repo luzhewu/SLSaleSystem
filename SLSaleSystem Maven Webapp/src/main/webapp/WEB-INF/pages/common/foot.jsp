@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-</div><!--/.fluid-container-->
+	<!-- content ends -->
+	</div><!--/#content.span10-->
+		</div><!--/fluid-row-->
+<hr>	
     <footer>
 			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">SL</a> 2015</p>
 			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">SL_LZW</a></p>
 	</footer>
 		
-	
+</div><!--/.fluid-container-->
 
 	<!-- external javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 
-	<!-- jQuery -->
-	<script src="/statics/js/jquery-1.7.2.min.js"></script>
+	
 	<!-- jQuery UI -->
 	<script src="/statics/js/jquery-ui-1.8.21.custom.min.js"></script>
 	<!-- transition / effect library -->

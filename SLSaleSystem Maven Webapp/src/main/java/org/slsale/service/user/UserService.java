@@ -43,4 +43,11 @@ public interface UserService {
 	 * @return
 	 */
 	List<User> getUserList(User user) throws Exception;
+
+	/**
+	 * 新增用户
+	 * @param user
+	 * @return
+	 */
+	int addUser(User user) throws Exception;
 }

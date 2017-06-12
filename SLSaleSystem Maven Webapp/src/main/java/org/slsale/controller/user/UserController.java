@@ -1,5 +1,6 @@
 package org.slsale.controller.user;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,17 +12,22 @@ import org.slsale.common.Constants;
 import org.slsale.common.PageSupport;
 import org.slsale.common.SQLTools;
 import org.slsale.controller.BaseController;
+import org.slsale.pojo.DataDictionary;
 import org.slsale.pojo.Role;
 import org.slsale.pojo.User;
 import org.slsale.service.role.RoleService;
 import org.slsale.service.user.UserService;
+import org.slsale.service.user.datadictionary.DataDictionaryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mysql.jdbc.StringUtils;
 
@@ -33,6 +39,8 @@ public class UserController extends BaseController {
 	private UserService userService;
 	@Resource
 	private RoleService roleService;
+	@Resource
+	private DataDictionaryService dataDictionaryService;
 
 	@RequestMapping("/backend/modifyPwd.html")
 	@ResponseBody
@@ -76,10 +84,15 @@ public class UserController extends BaseController {
 		if (baseModel == null) {
 			return new ModelAndView("redirect:/");
 		} else {
-			// 获取roleList
+			// 获取roleList and cardTypeList
 			List<Role> roleList = null;
+			DataDictionary dataDictionary = new DataDictionary();
+			dataDictionary.setTypeCode("CARD_TYPE");
+			List<DataDictionary> cardTypeList = null;
 			try {
 				roleList = roleService.getRoleList();
+				cardTypeList = dataDictionaryService
+						.getDataDictionaries(dataDictionary);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -138,6 +151,7 @@ public class UserController extends BaseController {
 				page.setItems(null);
 			}
 			// 放入到model中
+			model.addAttribute("cardTypeList", cardTypeList);
 			model.addAllAttributes(baseModel);
 			model.addAttribute("page", page);
 			model.addAttribute("s_loginCode", s_loginCode);
@@ -146,6 +160,70 @@ public class UserController extends BaseController {
 			model.addAttribute("s_roleId", s_roleId);
 			model.addAttribute("roleList", roleList);
 			return new ModelAndView("/backend/userlist");
+		}
+	}
+
+	@RequestMapping(value = "/backend/loadUserTypeList.html", produces = { "text/html;charset=UTF-8" })
+	@ResponseBody
+	public Object loadUserTypeList(
+			@RequestParam(value = "s_roleId", required = false) String s_roleId) {
+		String cjson = "";
+		DataDictionary dataDictionary = new DataDictionary();
+		dataDictionary.setTypeCode("USER_TYPE");
+		try {
+			List<DataDictionary> userTypeList = dataDictionaryService
+					.getDataDictionaries(dataDictionary);
+			cjson = JSONArray.toJSONString(userTypeList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return cjson;
+	}
+
+	@RequestMapping(value = "/backend/logincodeisexist.html", produces = { "text/html;charset=UTF-8" })
+	@ResponseBody
+	public String loginCodeIsExist(
+			@RequestParam(value = "loginCode", required = false) String loginCode,
+			@RequestParam(value = "id", required = false) String id) {
+		String result = "failed";
+		User _user = new User();
+		_user.setLoginCode(loginCode);
+		if (!"-1".equals(id)) {
+			_user.setId(Integer.parseInt(id));
+		}
+		try {
+
+			if (userService.loginCodeIsExist(_user) == 0)
+				result = "only";
+			else
+				result = "repeat";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return result;
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/backend/adduser.html", method = RequestMethod.POST)
+	public ModelAndView addUser(HttpSession session,
+			@ModelAttribute("addUser") User addUser) {
+		if (session.getAttribute(Constants.SESSION_BASE_MODEL) == null) {
+			return new ModelAndView("redirect:/");
+		} else {
+			String idCard = addUser.getIdCard();
+			String ps = idCard.substring(idCard.length() - 6);
+			addUser.setPassword(ps);
+			addUser.setPassword2(ps);
+			addUser.setCreateTime(new Date());
+			addUser.setReferId(this.getCurrentUser().getId());
+			addUser.setReferCode(this.getCurrentUser().getLoginCode());
+			addUser.setLastUpdateTime(new Date());
+			try {
+				userService.addUser(addUser);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return new ModelAndView("redirect:/backend/userlist.html");
 		}
 	}
 }

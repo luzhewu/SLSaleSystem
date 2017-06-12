@@ -16,6 +16,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<if test="loginCode != null">
 					and loginCode = #{loginCode}
 				</if>
+				<if test="id != null">
+					and id != #{id}
+				</if>
 			</trim>
 	</select>
 	
@@ -44,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<if test="userType != null">userType=#{userType},</if>
 				<if test="userTypeName != null">userTypeName=#{userTypeName},</if>
 				<if test="isStart != null">isStart=#{isStart},</if>
-				<if test="lastUp != null">lastUp=#{lastUp},</if>
+				<if test="lastUpdateTime != null">lastUpdateTime=#{lastUpdateTime},</if>
 				<if test="lastLoginTime != null">lastLoginTime=#{lastLoginTime},</if>
 				<if test="bankAccount != null">bankAccount=#{bankAccount},</if>
 				<if test="bankName != null">bankName=#{bankName},</if>
@@ -60,13 +63,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(1) from au_user
 			<trim prefix="where" prefixOverrides="and | or">
 				<if test="loginCode !=null">
-					and loginCode like #{loginCode} 
+					and loginCode like CONCAT('%',#{loginCode},'%') 
 				</if>
 				<if test="userName !=null">
-					and userName like #{userName}
+					and userName like CONCAT('%',#{userName},'%')
 				</if>
 				<if test="referCode !=null">
-					and referCode like #{referCode}
+					and referCode like CONCAT('%',#{referCode},'%')
 				</if>
 				<if test="roleId !=null">
 					and roleId = #{roleId} 
@@ -88,13 +91,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from au_user
 			<trim prefix="where" prefixOverrides="and | or">
 				<if test="loginCode !=null">
-					and loginCode like #{loginCode} 
+					and loginCode like CONCAT('%',#{loginCode},'%') 
 				</if>
 				<if test="userName !=null">
-					and userName like #{userName}
+					and userName like CONCAT('%',#{userName},'%')
 				</if>
 				<if test="referCode !=null">
-					and referCode like #{referCode}
+					and referCode like CONCAT('%',#{referCode},'%')
 				</if>
 				<if test="roleId !=null">
 					and roleId = #{roleId} 
@@ -111,4 +114,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</trim>
 			order by createTime limit #{starNum},#{pageSize}
 	</select>
+	
+	
+	 
+	
+	
+	<!-- addUser -->
+	<insert id="addUser" parameterType="user">
+		insert into au_user(loginCode,password,password2,userName,sex,birthday,
+		cardType,cardTypeName,idCard,country,mobile,email,userAddress,postCode,
+		createTime,referId,referCode,roleId,roleName,userType,userTypeName,
+		isStart,lastUpdateTime,lastLoginTime,bankAccount,bankName,accountHolder,
+		idCardPicPath,bankPicPath)
+			values(#{loginCode},#{password},#{password2},#{userName},#{sex},#{birthday},
+			#{cardType},#{cardTypeName},#{idCard},#{country},#{mobile},#{email},#{userAddress},#{postCode},
+			#{createTime},#{referId},#{referCode},#{roleId},#{roleName},#{userType},#{userTypeName},
+			#{isStart},#{lastUpdateTime},#{lastLoginTime},#{bankAccount},#{bankName},#{accountHolder},
+			#{idCardPicPath},#{bankPicPath});
+	</insert>
 </mapper>
