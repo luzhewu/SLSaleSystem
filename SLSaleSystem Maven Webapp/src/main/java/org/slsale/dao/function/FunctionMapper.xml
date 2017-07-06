@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMainFunctionList" parameterType="authority" resultType="function">
 		SELECT * FROM au_function WHERE  id IN 
  			(SELECT functionId FROM au_authority WHERE parentId = 0 AND roleId = #{roleId})
+ 			order by id
 	</select>
 	<!-- getSubFunctionList  -->
 	<select id="getSubFunctionList" parameterType="function" resultType="function">

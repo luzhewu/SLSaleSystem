@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <jsp:include page="/WEB-INF/pages/common/header.jsp"/>
 
 <div>
@@ -85,15 +85,18 @@
 			  				<fmt:formatDate value="${user.createTime}" pattern="yyyy-MM-dd"/>
 			  			</td>
 			  			<td class="center">
-			  				<a class="btn btn-success" href="#">
+			  				<a class="btn btn-success viewuser" href="#" id="${user.id}">
 							<i class="icon-zoom-in icon-white"></i>  
 							查看                                           
 							</a>
-							<a class="btn btn-info" href="#">
+							<a class="btn btn-info modifyuser" href="#" id="${user.id}">
 								<i class="icon-edit icon-white"></i>  
 								修改                                            
 							</a>
-							<a class="btn btn-danger" href="#">
+							<a class="btn btn-danger deluser" href="#" usertype="${user.userType}" 
+								usertypename="${user.userTypeName}" logincode="${user.loginCode}" 
+								id="${user.id}" idcardpicpath="${user.idCardPicPath}" 
+								bankpicpath="${user.bankPicPath}">
 								<i class="icon-trash icon-white"></i> 
 								删除
 							</a>
@@ -145,11 +148,119 @@
 	</div><!--/span-->
 </div><!--/row-->
 
+<!-- userView strat -->
+<div class="modal hide fade" id="viewUserDiv">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>查看用户信息</h3>
+		</div>
+		<div class="modal-body">
+			<input type="hidden" id="v_id" value=""/>
+			<ul class="topul">
+				<li>
+					<label>角色:</label>
+					<input type="text" id="v_roleName" name="roleName" value="" readonly/>
+				</li>
+				<li>
+					<label>会员类型:</label>
+					<input type="text" id="v_usertypename" name="userTypeName" value="" readonly/>
+				</li>
+				<li>
+					<label>用户名:</label>
+					<input type="text" id="v_logincode" name="loginCode" value="" readonly/>
+				</li>
+				<li>
+					<label>姓名:</label>
+					<input type="text" id="v_username" name="userName" value="" readonly/>
+				</li>
+				<li>
+					<label>性别:</label>
+					<input type="text"  id="v_sex" name="sex" value="" readonly/>
+				</li>
+				<li>
+					<label>证件类型:</label>
+					<input type="text"  id="v_cardtype" name="cardType" style="width:100px;" value="" readonly/>
+				</li>
+				<li>
+					<label>证件号码:</label>
+					<input type="text"  id="v_idcard" name="idCard"  value="" readonly/>
+				</li>
+				<li>
+					<label>生日:</label>
+					<input type="text"  id="v_birthday"  value=""  name="birthday" size="15" readonly/>
+				</li>
+				<li>
+					<label>收货国家:</label>
+					<input type="text"  id="v_country" name="country" value="" readonly/>
+				</li>
+				<li>
+					<label>联系电话:</label>
+					<input type="text"  id="v_mobile" name="mobile"  value="" readonly />
+				</li>
+				<li>
+					<label>Email:</label>
+					<input type="text"  id="v_email" name="email"  value="" readonly/>
+				</li>
+				<li>
+					<label>邮政编码:</label>
+					<input type="text"  id="v_postcode" name="postCode"  value="" readonly />
+				</li>
+				<li>
+					<label>开户行:</label>
+					<input type="text"  id="v_bankname" name="bankName"  value="" readonly/>
+				</li>
+				<li>
+					<label>开户卡号:</label>
+					<input type="text"  id="v_bankaccount" name="bankAccount"  value="" readonly/>
+				</li>
+				<li>
+					<label>开户人:</label>
+					<input type="text"  id="v_accountholder" name="accountHolder"  value="" readonly/>
+				</li>
+				<li>
+					<label>推荐人:</label>
+					<input type="text" id="v_referCode" name="referCode" value="" readonly/>
+				</li>
+				<li>
+					<label>注册时间:</label>
+					<input type="text" name="createTime" id="v_createTime" value="" readonly/>
+				</li>
+				<li>
+					<label>是否启用:</label>
+					<select id="v_isStart" name="isStart" style="width: 100px" disabled></select>
+				</li>
+				<li class="lastli">
+					<label>收货地址:</label>
+					<textarea id="v_useraddress" name="userAddress" readonly></textarea>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<ul class="downul">
+					<li>
+					<label>上传身份证图片:</label>
+						<input type="hidden" id="v_fileInputIDPath" value=""/>
+						<div id="v_idPic"></div>
+					 </li>
+				</ul>
+				<ul class="downul">
+					<li>
+					<label>上传银行卡图片：</label>
+						<input type="hidden" id="v_fileInputBankPath" value=""/>
+						<div id="v_bankPic"></div>
+					 </li>
+				</ul>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn viewusercancel" data-dismiss="modal">返回</a>
+		</div>
+</div>
+<!-- userView end -->
+
 <!-- adduser start -->
 <div class="modal hide fade" id="adduserdiv">
 	<form onsubmit="return adduserfunction();" action="/backend/adduser.html" method="post" enctype="multipart/form-data">
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal">×</button>
+			<button type="button" class="close addusercancel" data-dismiss="modal">×</button>
 			<h3>添加用户信息</h3>
 		</div>
 		<div class="modal-body">
@@ -274,7 +385,7 @@
 			<ul class="downul">
 				<li>
 					<label>上传身份证图片:</label>
-					<input type="hidden" id="a_fileInputIDPath" name="idCardPicPathName"  value="" />
+					<input type="hidden" id="a_fileInputIDPath" name="idCardPicPath"  value="" />
 					<input id="a_fileInputID" name="a_fileInputID" type="file"/>
 					<input type="button" id="a_uploadbtnID" value="上传"/>
 					<p><span style="color:red;font-weight: bold;">*注：1、正反面 .2、大小不得超过50k.3、图片格式jpg、jpeg、pneg</span></p>
@@ -284,7 +395,7 @@
 			<ul class="downul">
 				<li>
 					<label>上传银行卡图片:</label>
-					<input type="hidden" id="a_fileInputBankPath" name="bankPicPathName"  value="" />
+					<input type="hidden" id="a_fileInputBankPath" name="bankPicPath"  value="" />
 					<input id="a_fileInputBank" name="a_fileInputBank" type="file"/>
 					<input type="button" id="a_uploadbtnBank" value="上传"/>
 					<p><span style="color:red;font-weight: bold;">*注：1、大小不得超过50k.2、图片格式jpg、jpeg、pneg</span></p>
@@ -300,8 +411,152 @@
 </div>
 <!-- adduser end -->
 
-<script type="text/javascript" src="/statics/localjs/userlist.js">
-
-</script>
+<!-- modifyuser start -->
+<div class="modal hide fade" id="modifyUserDiv">
+	<form onsubmit="return modifyuserFunction();" action="/backend/modifyuser.html" method="post" enctype="multipart/form-data">
+		<div class="modal-header">
+			<button type="button" class="close modifyusercancel" data-dismiss="modal">×</button>
+			<h3>修改用户信息</h3>
+		</div>
+		<div class="modal-body">
+			<ul id="modify_formtip"></ul>
+			<input type="hidden" id="m_id" name="id"/>
+			<ul class="topul">
+				<li>
+					<label>角色:</label>
+					<input type="hidden" id="m_rolename" name="roleName" value=""/>
+					<select id="m_roleid" name="roleId" style="width:100px;">
+					</select>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>会员类型:</label>
+					<input type="hidden" id="m_usertypename" name="userTypeName" value=""/>
+					<select id="m_usertype" name="userType" style="width:100px;">
+					</select>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>用户名:</label>
+					<input type="text" id="m_logincode" name="loginCode" value="" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"/>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>姓名:</label>
+					<input type="text" id="m_username" name="userName" value="" />
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>性别:</label>
+					<select id="m_sex" name="sex" style="width:100px;">
+					</select>
+				</li>
+				<li>
+					<label>证件类型:</label>
+					<input type="hidden" id="m_cardtypename" name="cardTypeName" value=""/>
+					<select id="m_cardtype" name="cardType" style="width:100px;">
+					</select>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>证件号码:</label>
+					<input type="text"  id="m_idcard" name="idCard"  value=""  onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"/>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>生日:</label>
+					<input type="text" class="Wdate" id="m_birthday"  value=""  name="birthday" size="15" readonly onclick="WdatePicker();"/>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>收货国家:</label>
+					<input type="text"  id="m_country" name="country" value="${user.country}" readonly/>
+				</li>
+				<li>
+					<label>联系电话:</label>
+					<input type="text"  id="m_mobile" name="mobile"  value=""  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>Email:</label>
+					<input type="text"  id="m_email" name="email"  value="" />
+				</li>
+				<li>
+					<label>邮政编码:</label>
+					<input type="text"  id="m_postcode" name="postCode"  value=""  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+				</li>
+				<li>
+					<label>开户行:</label>
+					<input type="text"  id="m_bankname" name="bankName"  value="" />
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>开户卡号:</label>
+					<input type="text"  id="m_bankaccount" name="bankAccount"  value=""  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"/>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>开户人:</label>
+					<input type="text"  id="m_accountholder" name="accountHolder"  value="" />
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li>
+					<label>推荐人:</label>
+					<input type="text" id="m_refercode" name="referCode" value="${user.loginCode}" readonly/>
+				</li>
+				<li>
+					<label>注册时间:</label>
+					<input type="text" name="createTime" id="m_createTime" value="" readonly/>
+				</li>
+				<li>
+					<label>是否启用:</label>
+					<select id="m_isstart" name="isStart" style="width: 100px">
+					</select>
+					<span style="color:red;font-weight: bold;">*</span>
+				</li>
+				<li class="lastli">
+					<label>收货地址:</label>
+					<textarea id="m_useraddress" name="userAddress"></textarea>
+				</li>
+			</ul>
+			<div class="clear"></div>
+			<ul class="downul">
+				<li>
+					<label>上传身份证图片:</label>
+					<input type="hidden" id="m_fileInputIDPath" name="idCardPicPath"  value="" />
+					<input id="m_fileInputID" name="m_fileInputID" type="file"/>
+					<input type="button" id="m_uploadbtnID" value="上传" style="display: none;"/>
+					<p><span style="color:red;font-weight: bold;">*注：1、正反面 .2、大小不得超过50k.3、图片格式jpg、jpeg、pneg</span></p>
+					<div id="m_idPic"></div>
+				</li>
+			</ul>
+			<ul class="downul">
+				<li>
+					<label>上传银行卡图片:</label>
+					<input type="hidden" id="m_fileInputBankPath" name="bankPicPath"  value="" />
+					<input id="m_fileInputBank" name="m_fileInputBank" type="file"/>
+					<input type="button" id="m_uploadbtnBank" value="上传" style="display: none;"/>
+					<p><span style="color:red;font-weight: bold;">*注：1、大小不得超过50k.2、图片格式jpg、jpeg、pneg</span></p>
+					<div id="m_bankPic"></div>
+				</li>
+			</ul>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn modifyusercancel" data-dismiss="modal">取消</a>
+			<input type="submit" class="btn btn-primary" value="保存"/>
+		</div>
+	</form>
+</div>
+<!-- modifyuser end -->
 
 <jsp:include page="/WEB-INF/pages/common/foot.jsp"/>
+<script type="text/javascript">
+	var cardTypeListJson = [<c:forEach items="${cardTypeList}" var="cardType">
+						{"valueId":"${cardType.valueId}","valueName":"${cardType.valueName}"},
+					</c:forEach>{"valueId":"over","valueName":"over"}];
+	var roleListJson = [<c:forEach items="${roleList}" var="role">
+						{"id":"${role.id}","roleName":"${role.roleName}"},
+					</c:forEach>{"id":"over","roleName":"over"}];
+</script>
+
+<script type="text/javascript" src="/statics/localjs/userlist.js"></script>

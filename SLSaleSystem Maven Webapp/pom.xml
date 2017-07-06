@@ -23,12 +23,28 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- json-lib start-->
+    <dependency>    
+    <groupId>net.sf.json-lib</groupId>    
+	    <artifactId>json-lib</artifactId>    
+	    <version>2.4</version>    
+	    <classifier>jdk15</classifier>    
+	</dependency>  
+    <!-- json-lib end-->
+    
+     	<dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.1</version>
+        </dependency>
        <!-- java ee包 -->  
         <dependency>  
             <groupId>javax</groupId>  
             <artifactId>javaee-api</artifactId>  
             <version>7.0</version>  
-        </dependency>  
+        </dependency> 
+        
     <!-- spring框架包 start -->  
         <dependency>  
             <groupId>org.springframework</groupId>  

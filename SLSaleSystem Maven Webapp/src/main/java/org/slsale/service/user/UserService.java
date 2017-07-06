@@ -50,4 +50,36 @@ public interface UserService {
 	 * @return
 	 */
 	int addUser(User user) throws Exception;
+
+	/**
+	 * 删除用户图片
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	int delUserPic(User user) throws Exception;
+
+	/**
+	 * 通过id查找对应的user
+	 * @param user
+	 * @return
+	 * @throws Exception
+	 */
+	User getUserById(User user) throws Exception;
+
+	/**
+	 * 删除用户
+	 * @param delUser
+	 * @return
+	 * @throws Exception
+	 */
+	int deleteUser(User delUser) throws Exception;
+
+	/**
+	 * getUserListBySearch
+	 * @param user
+	 * @return
+	 */
+	public List<User> getUserListBySearch(User user) throws Exception;
+
 }

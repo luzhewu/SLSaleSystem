@@ -112,12 +112,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and userType = #{userType} 
 				</if>
 			</trim>
-			order by createTime limit #{starNum},#{pageSize}
+			order by createTime desc limit #{starNum},#{pageSize}
 	</select>
-	
-	
-	 
-	
 	
 	<!-- addUser -->
 	<insert id="addUser" parameterType="user">
@@ -132,4 +128,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{isStart},#{lastUpdateTime},#{lastLoginTime},#{bankAccount},#{bankName},#{accountHolder},
 			#{idCardPicPath},#{bankPicPath});
 	</insert>
+	
+	<!-- delUserPic -->
+	<update id="delUserPic" parameterType="user">
+		update au_user
+			<set>
+				<if test="idCardPicPath != null">idCardPicPath = null,</if>
+				<if test="bankPicPath != null">bankPicPath = null</if>
+			</set>
+			where id = #{id}
+	</update>
+	
+	<!-- getUserById -->
+	<select id="getUserById" parameterType="user" resultType="user">
+		select * from au_user where id=#{id}
+	</select>
+	
+	<!-- delUser -->
+	<delete id="delUser" parameterType="user">
+		delete from au_user where id=#{id}
+	</delete>
+	
+	<!-- getUserListBySearch -->
+	<select id="getUserListBySearch" resultType="user" parameterType="user">
+		select * from au_user 
+		<trim prefix="where" prefixOverrides="and | or">
+			<if test="userName != null">
+			 and userName like #{userName}
+			</if>
+			<if test="loginCode != null">
+			 and loginCode like #{loginCode}
+			</if>
+			<if test="roleId != null">
+			  and roleId = #{roleId}
+			</if>
+			<if test="isStart != null">
+			  and isStart = #{isStart}
+			</if>
+			<if test="referCode != null">
+			  and referCode like #{referCode}
+			</if>
+			<if test="referId != null">
+			  and referId = #{referId}
+			</if>
+			<if test="userType != null">
+			  and userType = #{userType}
+			</if>
+		</trim>
+	</select>
+	
+	<!-- modifyUserRole -->
+	<update id="modifyUserRole" parameterType="user">
+		update au_user set roleName = #{roleName} where roleId = #{roleId}
+	</update>
 </mapper>

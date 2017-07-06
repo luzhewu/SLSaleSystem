@@ -11,7 +11,7 @@ import java.util.List;
 public class PageSupport {
 	private Integer totalCount = 0;// 总记录数
 	private Integer pageCount;// 总页数
-	private Integer pageSize = 1;// 页容量
+	private Integer pageSize = 3;// 页容量
 	private Integer page = 1;// 当前页
 	private Integer num = 3;// 当前页之前和之后显示的页数个数
 	private List items = new ArrayList();// 当前页列表(数据列表)

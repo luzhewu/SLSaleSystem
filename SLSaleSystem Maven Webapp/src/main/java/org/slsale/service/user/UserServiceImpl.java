@@ -43,4 +43,24 @@ public class UserServiceImpl implements UserService {
 		return userMapper.addUser(user);
 	}
 
+	@Override
+	public int delUserPic(User user) throws Exception {
+		return userMapper.delUserPic(user);
+	}
+
+	@Override
+	public User getUserById(User user) throws Exception {
+		return userMapper.getUserById(user);
+	}
+
+	@Override
+	public int deleteUser(User user) throws Exception {
+		return userMapper.delUser(user);
+	}
+
+	@Override
+	public List<User> getUserListBySearch(User user) throws Exception {
+		return userMapper.getUserListBySearch(user);
+	}
+
 }
