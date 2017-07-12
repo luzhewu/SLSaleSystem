@@ -80,7 +80,7 @@
 	</bean>
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">
 		<constructor-arg ref="jedisPoolConfig"/>
-		<constructor-arg value="192.168.1.172"/>
+		<constructor-arg value="192.168.21.195"/>
 		<constructor-arg value="6379"/>
 	</bean>
 	<bean id="redisAPI" class="org.slsale.common.RedisAPI">

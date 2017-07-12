@@ -14,4 +14,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM au_function WHERE  parentId = #{id} AND id IN 
  			(SELECT functionId FROM au_authority WHERE  roleId = #{roleId})
 	</select>
+	
+	<!--getFunctionListByIn  -->
+	<select id="getFunctionListByIn" resultType="function" parameterType="String">
+		select * from au_function where id in(
+			${idsSql}) or parentId in(
+				select id from au_function where id in(${idsSql}) 
+			and parentId > 0) or parentId = 999
+	</select>
+	
+	<!-- getSubFuncList -->
+	<select id="getSubFuncList" parameterType="function" resultType="function">
+		select * from au_function where parentId=#{id}
+	</select>
+	
+	<!-- getFunctionById -->
+	<select id="getFunctionById" resultType="function" parameterType="function">
+		select * from au_function where id = #{id}
+	</select>
+	
+	<!-- getFunctionsByRoleId -->
+	<select id="getFunctionsByRoleId" resultType="function" parameterType="authority">
+		select * from au_function where id in(select functionId from au_authority where roleId = #{roleId}) and parentId > 0
+	</select>
 </mapper>

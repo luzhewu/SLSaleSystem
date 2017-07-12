@@ -1,4 +1,4 @@
-package org.slsale.controller.role;
+package org.slsale.controller;
 
 import java.util.Date;
 import java.util.List;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.slsale.common.Constants;
-import org.slsale.controller.BaseController;
 import org.slsale.pojo.Role;
 import org.slsale.pojo.User;
 import org.slsale.service.role.RoleService;

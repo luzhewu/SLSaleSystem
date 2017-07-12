@@ -1,4 +1,4 @@
-package org.slsale.controller.user;
+package org.slsale.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,6 @@ import org.slsale.common.Constants;
 import org.slsale.common.JsonDateValueProcessor;
 import org.slsale.common.PageSupport;
 import org.slsale.common.SQLTools;
-import org.slsale.controller.BaseController;
 import org.slsale.pojo.DataDictionary;
 import org.slsale.pojo.Role;
 import org.slsale.pojo.User;

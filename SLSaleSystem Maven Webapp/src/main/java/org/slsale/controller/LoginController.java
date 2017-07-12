@@ -67,6 +67,25 @@ public class LoginController extends BaseController {
 					return new ModelAndView("redirect:/");
 				}
 			}
+			if (!redisAPI.exist("Role" + user.getReferId() + "UrlList")) {
+				try {
+					// get all role url list to redis
+					Authority authority = new Authority();
+					authority.setRoleId(user.getRoleId());
+					List<Function> functions = functionService
+							.getFunctionsByRoleId(authority);
+					if (functions != null) {
+						StringBuffer sBuffer = new StringBuffer();
+						for (Function function : functions) {
+							sBuffer.append(function.getFuncUrl());
+						}
+						redisAPI.set("Role" + user.getReferId() + "UrlList",
+								sBuffer.toString());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			session.setAttribute(Constants.SESSION_BASE_MODEL, model);
 			return new ModelAndView("main", model);
 
@@ -146,5 +165,13 @@ public class LoginController extends BaseController {
 		session.invalidate();
 		this.setCurrentUser(null);
 		return "index";
+	}
+
+	/**
+	 * 没有权限访问,进入401页面
+	 */
+	@RequestMapping("/401.html")
+	public ModelAndView noRole() {
+		return new ModelAndView("401");
 	}
 }

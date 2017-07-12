@@ -26,4 +26,25 @@ public class FunctionServiceImpl implements FunctionService {
 		return functionMapper.getSubFunctionList(function);
 	}
 
+	@Override
+	public List<Function> getFunctionListByIn(String idsSql) throws Exception {
+		return functionMapper.getFunctionListByIn(idsSql);
+	}
+
+	@Override
+	public List<Function> getSubFuncList(Function function) throws Exception {
+		return functionMapper.getSubFuncList(function);
+	}
+
+	@Override
+	public List<Function> getFunctionsByRoleId(Authority authority)
+			throws Exception {
+		return functionMapper.getFunctionsByRoleId(authority);
+	}
+
+	@Override
+	public Function getFunctionById(Function function) throws Exception {
+		return functionMapper.getFunctionById(function);
+	}
+
 }
